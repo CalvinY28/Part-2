@@ -64,6 +64,7 @@ public class Plane : MonoBehaviour
     }
 
     void Update() {
+
         if (Input.GetKey(KeyCode.Space)) {
             landingTimer += 0.1f * Time.deltaTime;
             float interpolation = landing.Evaluate(landingTimer);
