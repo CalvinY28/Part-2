@@ -17,6 +17,8 @@ public class Plane : MonoBehaviour
     float landingTimer;
     SpriteRenderer spriteRenderer;
     bool isDangerZone = false;
+    bool isLanding = false;
+    public float score = 0;
 
     void OnMouseDown()
     { 
@@ -92,21 +94,39 @@ public class Plane : MonoBehaviour
             }
 
         }
+        if (isLanding)
+        {
+            landingTimer += 0.1f * Time.deltaTime;
+            float interpolation = landing.Evaluate(landingTimer);
 
-        if (isDangerZone) { 
-            Plane otherPlanes = FindObjectOfType<Plane>();
-            if (otherPlanes != null)
+            if (transform.localScale.z < 0.1f)
             {
-                float distance = Vector3.Distance(transform.position, otherPlanes.transform.position);
-                Debug.Log("Distance " + distance);
-                if (distance < 2f) // for some reason it destroys it at the same distance even if i lower the value *** oo i see its becasue if its in dangerzone, this is very frustrating
+                Destroy(gameObject);
+                IncreaseScore(10);
+
+            }
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, interpolation);
+
+        }
+        else
+        {
+            if (isDangerZone)
+            {
+                Plane otherPlanes = FindObjectOfType<Plane>();
+                if (otherPlanes != null)
                 {
-                    Debug.Log("too close ");
-                    spriteRenderer.color = Color.yellow;
-                    Destroy(gameObject);
-                }
-                else { 
-                    spriteRenderer.color = Color.white;
+                    float distance = Vector3.Distance(transform.position, otherPlanes.transform.position);
+                    Debug.Log("Distance " + distance);
+                    if (distance < 2f) // for some reason it destroys it at the same distance even if i lower the value *** oo i see its becasue if its in dangerzone, this is very frustrating
+                    {
+                        Debug.Log("too close ");
+                        spriteRenderer.color = Color.yellow;
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Color.white;
+                    }
                 }
             }
         }
@@ -120,6 +140,11 @@ public class Plane : MonoBehaviour
             spriteRenderer.color = Color.red;
             isDangerZone = true;
         }
+
+        if (collision.CompareTag("Runway"))
+        {
+            isLanding = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -129,6 +154,11 @@ public class Plane : MonoBehaviour
             spriteRenderer.color = Color.white;
             isDangerZone = false;
         }
+
+        if (collision.CompareTag("Runway"))
+        {
+            isLanding = false;
+        }
     }
 
     void OnBecameInvisible()
@@ -136,5 +166,10 @@ public class Plane : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void IncreaseScore(float amount) {
+        score += amount;
+        Debug.Log("score: " + score);
+    
+    }
 
 }
