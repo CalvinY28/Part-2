@@ -15,6 +15,8 @@ public class Plane : MonoBehaviour
     Rigidbody2D rigidbody;
     public AnimationCurve landing;
     float landingTimer;
+    SpriteRenderer spriteRenderer;
+    bool isDangerZone = false;
 
     void OnMouseDown()
     { 
@@ -45,6 +47,7 @@ public class Plane : MonoBehaviour
     void Start() { 
         rigidbody = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, transform.position);
     
@@ -90,6 +93,48 @@ public class Plane : MonoBehaviour
 
         }
 
+        if (isDangerZone) { 
+            Plane otherPlanes = FindObjectOfType<Plane>();
+            if (otherPlanes != null)
+            {
+                float distance = Vector3.Distance(transform.position, otherPlanes.transform.position);
+                Debug.Log("Distance " + distance);
+                if (distance < 2f) // for some reason it destroys it at the same distance even if i lower the value *** oo i see its becasue if its in dangerzone, this is very frustrating
+                {
+                    Debug.Log("too close ");
+                    spriteRenderer.color = Color.yellow;
+                    Destroy(gameObject);
+                }
+                else { 
+                    spriteRenderer.color = Color.white;
+                }
+            }
+        }
+
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("DangerZone"))
+        {
+            spriteRenderer.color = Color.red;
+            isDangerZone = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("DangerZone"))
+        {
+            spriteRenderer.color = Color.white;
+            isDangerZone = false;
+        }
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
 
 }
