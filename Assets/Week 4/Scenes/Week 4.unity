@@ -244,8 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b64c0f38e34ee4893d76405c842b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planeSprite:
+  - {fileID: 0}
   plane: {fileID: 6201463375839850967, guid: 0f6d636bf8aa9c946a5e536c82d66dbc, type: 3}
-  spawn: {fileID: 2010787105}
 --- !u!4 &2010787105
 Transform:
   m_ObjectHideFlags: 0
