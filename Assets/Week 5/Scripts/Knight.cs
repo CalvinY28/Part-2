@@ -13,6 +13,7 @@ public class Knight : MonoBehaviour
     bool isDead = false;
     public float health;
     public float maxHealth = 5;
+    public HealthBar healthbar;
 
 
     void Start()
@@ -49,14 +50,16 @@ public class Knight : MonoBehaviour
     {
         if (isDead) return;
         clickingOnSelf = true;
-        TakeDMG(0.5f);
+        gameObject.SendMessage("TakeDMG", 1);
+        //TakeDMG(1f);
+        //healthbar.TakeDMG(1);
     }
     private void OnMouseUp()
     {
         clickingOnSelf = false;
     }
 
-    void TakeDMG(float damage) 
+    public void TakeDMG(float damage) 
     {
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
