@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class WeaponSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject Dagger;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space)) { 
+            Instantiate(Dagger, transform.position, Quaternion.identity);
+        }
     }
 }
