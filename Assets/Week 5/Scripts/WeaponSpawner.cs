@@ -17,4 +17,8 @@ public class WeaponSpawner : MonoBehaviour
             Instantiate(Dagger, transform.position, Quaternion.identity);
         }
     }
+
+    public void SpawnWeapon() {
+        Instantiate(Dagger, transform.position, Quaternion.identity);
+    }
 }
