@@ -2020,6 +2020,8 @@ MonoBehaviour:
   health: 0
   maxHealth: 5
   healthbar: {fileID: 5514867942074943153}
+  startHealth: {fileID: 3612917486993708712}
+  savedHealth: {fileID: 3612917486993708712}
 --- !u!95 &5514867942074943152
 Animator:
   serializedVersion: 5
