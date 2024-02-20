@@ -15,12 +15,15 @@ public class Player : MonoBehaviour
     private Vector3 targetPosition; //I should probably utilize Vector2
     public Animator animator;
     public Slider healthSlider;
+    private BoxCollider2D boxCollider;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+        currentHealth = PlayerPrefs.GetFloat("PlayerHealth", maxHealth);
         UpdateHealthSlider();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -47,6 +50,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             animator.SetTrigger("Roll");
+            DisableCollider(0.7f); //Rolling Dodges DMG
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -95,11 +99,14 @@ public class Player : MonoBehaviour
     void Die()
     {
         Debug.Log("Player died!");
+        PlayerPrefs.SetFloat("PlayerHealth", currentHealth);
+        PlayerPrefs.Save();
         Invoke("RestartScene", 1f); //Give it delay so it can play animation
     }
 
     void RestartScene() 
     {
+        PlayerPrefs.DeleteKey("PlayerHealth");
         SceneManager.LoadScene("Restart Menu");
     }
 
@@ -109,4 +116,19 @@ public class Player : MonoBehaviour
             healthSlider.value = currentHealth;
         }
     }
+
+    void DisableCollider(float time)
+    {
+        if (boxCollider != null) {
+            boxCollider.enabled = false;
+            Invoke("EnableCollider", time);
+        }
+    }
+    void EnableCollider()
+    {
+        if (boxCollider != null) {
+            boxCollider.enabled = true;
+        }
+    }
+
 }
