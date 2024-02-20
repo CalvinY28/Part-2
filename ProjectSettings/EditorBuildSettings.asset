@@ -5,13 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Week 6/Scenes/SceneB.unity
     guid: 0558c51be6d2a424fa19d4dbccd92b63
-  - enabled: 1
+  - enabled: 0
     path: Assets/Week 6/Scenes/SceneA.unity
     guid: 9bd89e5cb9cd4fa4bb75a757e25a8823
-  - enabled: 1
+  - enabled: 0
     path: Assets/Week 5/Scenes/Week5.unity
     guid: 3039e68dc44a15c408ca73167c6d05f4
+  - enabled: 1
+    path: Assets/Assignment/Scenes/Start Menu.unity
+    guid: 57f01af6145e3e04ebbce8494efa7f2f
+  - enabled: 1
+    path: Assets/Assignment/Scenes/Scene1.unity
+    guid: 520fe35277b11fa4492f297a61861401
+  - enabled: 1
+    path: Assets/Assignment/Scenes/Restart Menu.unity
+    guid: 312ddfb70d52c954e92c8a733a44bca8
+  - enabled: 1
+    path: Assets/Assignment/Scenes/Scene2.unity
+    guid: 50baa1248d123a547af4f131c3a7c9af
   m_configObjects: {}

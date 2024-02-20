@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Tilemaps;
-using UnityEditor.Experimental.GraphView;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
         //Get Position Where Mouse Clicked
         //Move to Position
 
+        if (currentHealth <= 0f) {
+            // Player is dead dont move
+            return;
+        }
+
         if (Input.GetMouseButton(1)) {
             Vector3 targetPosition = GetMouseWorldPosition();
             MoveTo(targetPosition);
@@ -51,7 +56,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void MoveTo(Vector3 targetPosition) { 
+    void MoveTo(Vector3 targetPosition) {
 
         //Calculate Direction to Position
         //Move Player to Direction
@@ -62,7 +67,7 @@ public class Player : MonoBehaviour
         float distanceToClick = Vector3.Distance(transform.position, targetPosition); //This feels more complicated then it needs to be
     }
 
-    Vector3 GetMouseWorldPosition() { 
+    Vector3 GetMouseWorldPosition() {
 
         //Get Mouse in Screen Area
         //Convert MousePos in Screen to World
@@ -90,6 +95,12 @@ public class Player : MonoBehaviour
     void Die()
     {
         Debug.Log("Player died!");
+        Invoke("RestartScene", 1f); //Give it delay so it can play animation
+    }
+
+    void RestartScene() 
+    {
+        SceneManager.LoadScene("Restart Menu");
     }
 
     void UpdateHealthSlider()
