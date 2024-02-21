@@ -163,8 +163,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 9031395992605989541}
-  selectedColour: {r: 0.49056602, g: 0.26148093, b: 0.26148093, a: 1}
-  unSelectedColour: {r: 1, g: 0.9160254, b: 0.75, a: 1}
+  rb: {fileID: 0}
+  selectedColour: {r: 0.9056604, g: 0.5934053, b: 0.508366, a: 1}
+  unSelectedColour: {r: 0.6132076, g: 0.23429158, b: 0.23429158, a: 1}
+  speed: 100
 --- !u!1 &6365089740291311208
 GameObject:
   m_ObjectHideFlags: 0
